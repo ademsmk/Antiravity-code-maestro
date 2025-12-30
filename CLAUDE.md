@@ -62,15 +62,18 @@
 
 ---
 
-## 📚 Skills (33)
+## 📚 Skills (37)
 
 ### Core Skills
 
 | Skill | Purpose |
 |-------|---------|
 | `app-builder` | Main orchestrator - project building |
+| `clean-code` | **CRITICAL** - Concise, direct coding - no over-engineering |
 | `conversation-manager` | User communication protocol |
 | `behavioral-modes` | AI modes: brainstorm, implement, debug, ship |
+| `geo-fundamentals` | **GEO** - AI search optimization (ChatGPT, Claude, Perplexity) |
+| `seo-fundamentals` | **SEO** - E-E-A-T, Core Web Vitals, Google updates |
 
 ### Templates (12)
 
@@ -102,7 +105,7 @@ skills/
 ├── database-design/
 ├── security-checklist/
 ├── testing-patterns/
-└── ... (31 total)
+└── ... (37 total)
 ```
 
 ---
@@ -190,7 +193,7 @@ This workspace includes Terminal Error Learning:
 ```
 c:\claude\
 ├── agents/          # 14 specialized agents
-├── skills/          # 33 knowledge resources
+├── skills/          # 37 knowledge resources
 ├── commands/        # 8 slash commands
 ├── scripts/         # 9 Python automation scripts
 ├── data/            # Runtime state and error database
@@ -226,7 +229,7 @@ Hooks are configured in `settings.json`:
 | Category | Count |
 |----------|-------|
 | Agents | 14 |
-| Skills | 33 |
+| Skills | 37 |
 | Commands | 8 |
 | Scripts | 9 |
 | Templates | 12 |

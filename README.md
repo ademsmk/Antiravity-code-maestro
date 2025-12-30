@@ -3,8 +3,8 @@
 > **A comprehensive AI-assisted development framework** that transforms Claude into a powerful development team with specialized agents, intelligent skills, and automated workflows.
 
 [![Agents](https://img.shields.io/badge/Agents-14-blue)](#-agents)
-[![Skills](https://img.shields.io/badge/Skills-34-green)](#-skills)
-[![Commands](https://img.shields.io/badge/Commands-9-orange)](#-commands)
+[![Skills](https://img.shields.io/badge/Skills-37-green)](#-skills)
+[![Commands](https://img.shields.io/badge/Commands-8-orange)](#-commands)
 [![Python](https://img.shields.io/badge/Python-3.10+-yellow)](#-scripts)
 
 ---
@@ -12,9 +12,10 @@
 ## ✨ Features
 
 - 🤖 **14 Specialized Agents** - Expert AI personas for frontend, backend, mobile, DevOps, and more
--  **34 Skills** - Domain knowledge resources with patterns, best practices, and templates
-- ⚡ **9 Slash Commands** - Quick actions for creating apps, debugging, testing, and deploying
-- 🐍 **8 Python Scripts** - Automation hooks for error learning, session management, and progress tracking
+-  **37 Skills** - Domain knowledge resources with patterns, best practices, and templates |
+- ⚡ **8 Slash Commands** - Quick actions for creating apps, debugging, testing, and deploying
+- 🐍 **9 Python Scripts** - Automation hooks for error learning, session management, and progress tracking
+- 🎯 **Clean Code Standards** - CRITICAL skill for concise, direct, solution-focused code
 - 🎭 **6 Behavioral Modes** - Adaptive AI behavior: Brainstorm, Implement, Debug, Review, Teach, Ship
 - 🔄 **Error Learning System** - Automatically learns from past mistakes and prevents recurring issues
 - 🧩 **Parallel Orchestration** - Run multiple specialized agents concurrently for different perspectives
@@ -310,9 +311,9 @@ Hooks are configured in `settings.json`:
 
 | Category | Count |
 |----------|-------|
-| Agents | 15 |
-| Skills | 34 |
-| Commands | 9 |
+| Agents | 14 |
+| Skills | 37 |
+| Commands | 8 |
 | Scripts | 9 |
 | Templates | 12 |
 | Behavioral Modes | 6 |

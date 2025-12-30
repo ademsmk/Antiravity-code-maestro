@@ -16,12 +16,19 @@ Knowledge resources that agents reference for domain expertise. Skills are not d
 | tailwind-patterns | Tailwind CSS v4 Oxide |
 | frontend-design | 2025 Precision: 8-point grid, Golden Ratio |
 
+### 📈 Marketing
+| Skill | Description |
+|-------|-------------|
+| geo-fundamentals | **GEO** - Generative Engine Optimization for AI search |
+| seo-fundamentals | **SEO** - E-E-A-T, Core Web Vitals, 2025 updates |
+
 ### 🔧 Workflows
 | Skill | Description |
 |-------|-------------|
 | app-builder | Application building orchestration |
 | conversation-manager | User communication protocol |
 | behavioral-modes | AI operational modes (brainstorm, implement, debug) |
+| clean-code | **CRITICAL** - Concise, direct coding - no over-engineering |
 | plan-writing | Implementation planning |
 | brainstorming | Structured ideation |
 | tdd-workflow | Test-driven development |
@@ -77,4 +84,4 @@ skills/
         └── TEMPLATE.md
 ```
 
-## Total: 34 Skills
+## Total: 37 Skills
