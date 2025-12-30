@@ -4,7 +4,9 @@ settings.json
 settings.local.json
 .credentials.json
 
+# Environment
+.env.local
+.env.*.local
+
 # docs
 
-kaynakca.md
-claudecodedoc.md
