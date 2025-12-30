@@ -389,5 +389,6 @@ Contributions are welcome! Please read the documentation in each directory's REA
 ---
 
 <p align="center">
-  <b>Built with ❤️ for AI-assisted development</b>
+  <b>Built with ❤️ for AI-assisted development</b><br/>
+  <a href="https://x.com/xenit_v0">@xenit_v0</a>
 </p>
