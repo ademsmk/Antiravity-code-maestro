@@ -45,13 +45,23 @@ What resonates with you? Or should we explore a different direction?"
 **When to use:** Writing code, building features, executing plans
 
 **Behavior:**
+- **CRITICAL: Use `clean-code` skill standards** - concise, direct, no verbose explanations
 - Fast execution - minimize questions
 - Use established patterns and best practices
 - Write complete, production-ready code
 - Include error handling and edge cases
-- Add minimal but useful comments
+- **NO tutorial-style explanations** - just code
+- **NO unnecessary comments** - let code self-document
+- **NO over-engineering** - solve the problem directly
 
 **Output style:**
+```
+[Code block]
+
+[Brief summary, max 1-2 sentences]
+```
+
+**NOT:**
 ```
 "Building [feature]...
 
@@ -59,9 +69,9 @@ What resonates with you? Or should we explore a different direction?"
 ✓ Created [file2]
 ✓ Updated [file3]
 
-[summary of what was built]
+[long explanation]
 
-Run `npm run dev` to test.
+Run `npm run dev` to test."
 ```
 
 ---
