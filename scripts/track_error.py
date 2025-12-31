@@ -15,6 +15,19 @@ from pathlib import Path
 from datetime import datetime
 from typing import Dict, Any, Optional
 
+# Debug logging
+DEBUG_LOG = Path.home() / ".claude" / "data" / "hook_debug.log"
+
+def debug_log(message: str):
+    """Write debug log."""
+    try:
+        DEBUG_LOG.parent.mkdir(parents=True, exist_ok=True)
+        with open(DEBUG_LOG, "a", encoding="utf-8") as f:
+            timestamp = datetime.now().isoformat()
+            f.write(f"[{timestamp}] track_error.py: {message}\n")
+    except Exception as e:
+        sys.stderr.write(f"DEBUG_LOG_ERROR: {e}\n")
+
 # Paths
 CLAUDE_DIR = Path.home() / ".claude"
 DATA_DIR = CLAUDE_DIR / "data"
@@ -123,29 +136,39 @@ def normalize_command(cmd: str) -> str:
 
 def main():
     """Main function."""
+    debug_log(f"MAIN called: argv={sys.argv}")
+
     if len(sys.argv) < 4:
         print("Usage: python track_error.py \"<command>\" \"<exit_code>\" \"<output>\" [project_path]")
         sys.exit(0)
-    
+
     command = sys.argv[1]
     exit_code = sys.argv[2]
     output = sys.argv[3]
     project_path = sys.argv[4] if len(sys.argv) > 4 else os.getcwd()
-    
+
+    debug_log(f"Parsed: command={command[:50]}..., exit_code={exit_code}, project_path={project_path}")
+
     try:
         # Skip if not an error
         if exit_code == "0" and not re.search(r"error|Error|ERROR|failed|Failed", output):
+            debug_log("No error detected, skipping")
             sys.exit(0)
+
+        debug_log(f"Error detected: exit_code={exit_code}")
         
         # Load database
         error_db = load_error_database()
         errors = error_db.get("errors", [])
+        debug_log(f"Loaded error database: {len(errors)} errors")
         
         # Detect error type
         error_type = detect_error_type(output)
         error_message = extract_error_message(output)
         error_category = get_error_category(error_type)
         pattern = normalize_command(command)
+
+        debug_log(f"Detected error type: {error_type}, pattern: {pattern}")
         
         # Check for similar error
         similar_error = None
@@ -164,6 +187,7 @@ def main():
             if similar_error["occurrences"] >= 3:
                 similar_error["status"] = "recurring"
             print(f"🔄 Recurring error: {error_type} (x{similar_error['occurrences']})")
+            debug_log(f"Updated existing error: {error_type}, occurrences: {similar_error['occurrences']}")
         else:
             # Create new error entry
             new_error = {
@@ -184,7 +208,8 @@ def main():
             }
             errors.append(new_error)
             print(f"📝 New error tracked: {error_type}")
-            
+            debug_log(f"New error tracked: {error_type}, id={new_error['id'][:8]}")
+
             # Show suggestion
             if error_type in AUTO_SOLUTIONS:
                 print(f"💡 Suggestion: {AUTO_SOLUTIONS[error_type]}")
@@ -192,8 +217,12 @@ def main():
         # Save database
         error_db["errors"] = errors
         save_error_database(error_db)
-        
+        debug_log("Error database saved")
+
     except Exception as e:
+        debug_log(f"ERROR: {type(e).__name__}: {e}")
+        import traceback
+        debug_log(f"TRACEBACK: {traceback.format_exc()}")
         print(f"Track error warning: {e}", file=sys.stderr)
     
     sys.exit(0)

@@ -19,6 +19,19 @@ from datetime import datetime
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from typing import Dict, List, Any, Optional
 
+# Debug logging
+DEBUG_LOG = Path.home() / ".claude" / "data" / "hook_debug.log"
+
+def debug_log(message: str):
+    """Write debug log."""
+    try:
+        DEBUG_LOG.parent.mkdir(parents=True, exist_ok=True)
+        with open(DEBUG_LOG, "a", encoding="utf-8") as f:
+            timestamp = datetime.now().isoformat()
+            f.write(f"[{timestamp}] parallel_orchestrator.py: {message}\n")
+    except Exception as e:
+        sys.stderr.write(f"DEBUG_LOG_ERROR: {e}\n")
+
 # Paths
 CLAUDE_DIR = Path.home() / ".claude"
 DATA_DIR = CLAUDE_DIR / "data"
@@ -46,6 +59,7 @@ class AgentTask:
         self.ended_at = None
 
     def execute(self, test_mode: bool = False):
+        debug_log(f"AgentTask.execute: {self.name}, test_mode={test_mode}")
         self.status = "running"
         self.started_at = datetime.now().isoformat()
         run_progress_reporter("update", self.name, "running", self.prompt[:50], "10")
@@ -55,12 +69,14 @@ class AgentTask:
                 # Mock execution
                 import random
                 sleep_time = random.uniform(2, 5)
+                debug_log(f"Mock execution: {self.name}, sleep={sleep_time:.2f}s")
                 time.sleep(sleep_time)
                 self.result = f"MOCK RESULT for {self.name}: Analyzed {self.prompt[:30]}... found 3 issues."
                 self.status = "completed"
                 run_progress_reporter("update", self.name, "completed", "Mock Done", "100")
             else:
                 # Real execution using Claude Code CLI
+                debug_log(f"Real execution: claude {self.prompt[:50]}...")
                 process = subprocess.Popen(
                     ["claude", self.prompt],
                     stdout=subprocess.PIPE,
@@ -70,20 +86,24 @@ class AgentTask:
                 )
                 
                 stdout, stderr = process.communicate()
-                
+                debug_log(f"Process finished: {self.name}, returncode={process.returncode}")
+
                 self.result = stdout
                 if process.returncode != 0:
                     self.status = "failed"
                     self.error = stderr
                     run_progress_reporter("update", self.name, "failed", stderr[:50], "100")
+                    debug_log(f"Agent {self.name} failed: {stderr[:100]}")
                 else:
                     self.status = "completed"
                     run_progress_reporter("update", self.name, "completed", "Done", "100")
+                    debug_log(f"Agent {self.name} completed successfully")
                 
         except Exception as e:
             self.status = "failed"
             self.error = str(e)
             run_progress_reporter("update", self.name, "failed", str(e)[:50], "0")
+            debug_log(f"Agent {self.name} exception: {type(e).__name__}: {e}")
         
         self.ended_at = datetime.now().isoformat()
         return self
@@ -96,12 +116,14 @@ class Orchestrator:
         self.session_id = str(uuid.uuid4())
         self.tasks: List[AgentTask] = []
         self.results = {}
+        debug_log(f"Orchestrator.__init__: session_id={self.session_id[:8]}, agents={agent_count}, test_mode={test_mode}")
 
     def ensure_dirs(self):
         DATA_DIR.mkdir(parents=True, exist_ok=True)
 
     def initialize_tasks(self):
         """Divide main prompt by agent count and assign to relevant local agent."""
+        debug_log(f"initialize_tasks: creating {self.agent_count} tasks")
         # Task - Agent matching
         agent_map = [
             {"perspective": "Architecture & Security", "agent": "security-auditor", "skills": "security-checklist, api-patterns"},
@@ -119,10 +141,11 @@ class Orchestrator:
             
             # Sub-agent tetikleyici komut ekle
             sub_prompt = f"Use the {agent_name} agent with {skills} skills to focus on {perspective}: {self.main_prompt}"
-            
+
             agent_id = str(uuid.uuid4())
             task = AgentTask(agent_id, sub_prompt, f"{agent_name}")
             self.tasks.append(task)
+            debug_log(f"Task created: {agent_name} ({perspective})")
 
     def save_state(self):
         state = {
@@ -141,8 +164,10 @@ class Orchestrator:
             ]
         }
         ORCHESTRATOR_STATE_FILE.write_text(json.dumps(state, indent=2, ensure_ascii=False), encoding="utf-8")
+        debug_log(f"State saved: {len(self.tasks)} tasks")
 
     def run(self):
+        debug_log("Orchestrator.run: starting")
         self.ensure_dirs()
         self.initialize_tasks()
         self.save_state()
@@ -153,21 +178,25 @@ class Orchestrator:
         
         with ThreadPoolExecutor(max_workers=self.agent_count) as executor:
             futures = {executor.submit(task.execute, self.test_mode): task for task in self.tasks}
-            
+            debug_log(f"Submitted {len(futures)} tasks to ThreadPoolExecutor")
+
             for future in as_completed(futures):
                 task = futures[future]
                 try:
                     task = future.result()
                     print(f"✅ {task.name} finished: {task.status}")
+                    debug_log(f"Task {task.name} finished: {task.status}")
                 except Exception as e:
                     print(f"❌ {task.name} crashed: {e}")
-                
+                    debug_log(f"Task {task.name} crashed: {type(e).__name__}: {e}")
+
                 self.save_state()
 
         self.synthesize()
 
     def synthesize(self):
         """Collect all agent results and create a synthesis."""
+        debug_log("Synthesis: starting")
         print("\n🧠 Synthesizing results...")
         
         synthesis_content = f"# Parallel Agents Synthesis Report\n"
@@ -186,10 +215,13 @@ class Orchestrator:
         reports_dir.mkdir(parents=True, exist_ok=True)
         report_file = reports_dir / f"synthesis_report_{self.session_id[:8]}.md"
         report_file.write_text(synthesis_content, encoding="utf-8")
-        
+
         print(f"✨ Final synthesis report generated: {report_file}")
+        debug_log(f"Synthesis report saved: {report_file}")
         
 def main():
+    debug_log(f"MAIN called: argv={sys.argv}")
+
     if len(sys.argv) < 2:
         print("Usage: python scripts/parallel_orchestrator.py \"your task\" [--agents N] [--test]")
         return
@@ -197,17 +229,27 @@ def main():
     prompt = sys.argv[1]
     agents = 3
     test_mode = "--test" in sys.argv
-    
+
+    debug_log(f"Parsed: prompt={prompt[:50]}..., agents={agents}, test_mode={test_mode}")
+
     if "--agents" in sys.argv:
         idx = sys.argv.index("--agents")
         if idx + 1 < len(sys.argv):
             try:
                 agents = int(sys.argv[idx + 1])
+                debug_log(f"Agent count set to: {agents}")
             except ValueError:
-                pass
-            
-    orchestrator = Orchestrator(prompt, agents, test_mode)
-    orchestrator.run()
+                debug_log(f"Invalid agent count, using default: {agents}")
+
+    try:
+        orchestrator = Orchestrator(prompt, agents, test_mode)
+        orchestrator.run()
+        debug_log("Orchestrator.run completed")
+    except Exception as e:
+        debug_log(f"ORCHESTRATOR ERROR: {type(e).__name__}: {e}")
+        import traceback
+        debug_log(f"TRACEBACK: {traceback.format_exc()}")
+        raise
 
 if __name__ == "__main__":
     main()

@@ -11,7 +11,21 @@ import sys
 import re
 import os
 from pathlib import Path
+from datetime import datetime
 from typing import Dict, Any, Optional
+
+# Debug logging
+DEBUG_LOG = Path.home() / ".claude" / "data" / "hook_debug.log"
+
+def debug_log(message: str):
+    """Write debug log."""
+    try:
+        DEBUG_LOG.parent.mkdir(parents=True, exist_ok=True)
+        with open(DEBUG_LOG, "a", encoding="utf-8") as f:
+            timestamp = datetime.now().isoformat()
+            f.write(f"[{timestamp}] check_prevention.py: {message}\n")
+    except Exception as e:
+        sys.stderr.write(f"DEBUG_LOG_ERROR: {e}\n")
 
 # Paths
 CLAUDE_DIR = Path.home() / ".claude"
@@ -79,15 +93,20 @@ def check_learned_prevention(command: str, rules: list) -> Optional[Dict[str, An
 
 def main():
     """Ana fonksiyon."""
+    debug_log(f"MAIN called: argv={sys.argv}")
+
     if len(sys.argv) < 2:
         print(json.dumps({"shouldApplyPrevention": False}))
         sys.exit(0)
-    
+
     command = sys.argv[1]
     project_path = sys.argv[2] if len(sys.argv) > 2 else os.getcwd()
-    
+
+    debug_log(f"Parsed: command={command[:50]}..., project_path={project_path}")
+
     # Check dangerous commands first
     dangerous = check_dangerous_command(command)
+    debug_log(f"Dangerous check: {dangerous}")
     if dangerous:
         result = {
             "shouldApplyPrevention": True,
@@ -105,22 +124,25 @@ def main():
             print(f"   Pattern: {dangerous['pattern']}")
         
         print(json.dumps(result))
+        debug_log(f"Dangerous command blocked/warned: {dangerous['severity']}")
         sys.exit(0)
-    
+
     # Check learned prevention rules
     rules = load_prevention_rules()
     prevention = check_learned_prevention(command, rules)
+    debug_log(f"Learned prevention check: {prevention is not None}")
     
     if prevention:
         print(f"⚠️ PREVENTION: Known problematic pattern detected")
         print(f"   Pattern: {prevention['errorPattern']}")
         print(f"   Suggestion: {prevention['preventionAction']}")
         print(json.dumps(prevention))
+        debug_log(f"Applied prevention: {prevention['errorPattern']}")
     else:
         print(json.dumps({"shouldApplyPrevention": False}))
-    
-    sys.exit(0)
+        debug_log("No prevention applied, command allowed")
 
+    sys.exit(0)
 
 if __name__ == "__code__" or __name__ == "__main__":
     try:
@@ -130,4 +152,11 @@ if __name__ == "__code__" or __name__ == "__main__":
             sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding='utf-8')
     except:
         pass
-    main()
+    try:
+        main()
+    except Exception as e:
+        debug_log(f"UNHANDLED ERROR: {type(e).__name__}: {e}")
+        import traceback
+        debug_log(f"TRACEBACK: {traceback.format_exc()}")
+        print(json.dumps({"shouldApplyPrevention": False}))
+        sys.exit(0)

@@ -14,6 +14,19 @@ from pathlib import Path
 from datetime import datetime
 from typing import List, Dict, Any, Optional
 
+# Debug logging
+DEBUG_LOG = Path.home() / ".claude" / "data" / "hook_debug.log"
+
+def debug_log(message: str):
+    """Write debug log."""
+    try:
+        DEBUG_LOG.parent.mkdir(parents=True, exist_ok=True)
+        with open(DEBUG_LOG, "a", encoding="utf-8") as f:
+            timestamp = datetime.now().isoformat()
+            f.write(f"[{timestamp}] pre_bash.py: {message}\n")
+    except Exception as e:
+        sys.stderr.write(f"DEBUG_LOG_ERROR: {e}\n")
+
 # Paths
 CLAUDE_DIR = Path.home() / ".claude"
 DATA_DIR = CLAUDE_DIR / "data"
@@ -217,23 +230,30 @@ def print_warnings_simple(similar_errors: List[Dict], command: str):
 
 def main():
     """Main function."""
+    debug_log(f"MAIN called: argv={sys.argv}")
+
     if len(sys.argv) < 2:
         print("Usage: python pre_bash.py \"<command>\" [project_path]")
         sys.exit(0)
-    
+
     command = sys.argv[1]
     project_path = sys.argv[2] if len(sys.argv) > 2 else os.getcwd()
-    
+
+    debug_log(f"Parsed: command={command[:50]}..., project_path={project_path}")
+
     try:
         # Load error database
         error_db = load_error_database()
         errors = error_db.get("errors", [])
+        debug_log(f"Loaded error database: {len(errors)} errors")
         
         # Normalize command
         normalized_cmd = normalize_command(command)
-        
+        debug_log(f"Normalized command: {normalized_cmd}")
+
         # Find similar errors
         similar_errors = find_similar_errors(command, normalized_cmd, project_path, errors)
+        debug_log(f"Found {len(similar_errors)} similar errors")
         
         # Print warnings if found
         if similar_errors:
@@ -241,11 +261,17 @@ def main():
                 print_warnings_rich(similar_errors, command)
             else:
                 print_warnings_simple(similar_errors, command)
-        
+            debug_log(f"Displayed warnings for {len(similar_errors)} similar errors")
+        else:
+            debug_log("No similar errors found")
+
         # Always allow command to proceed
         sys.exit(0)
-        
+
     except Exception as e:
+        debug_log(f"ERROR: {type(e).__name__}: {e}")
+        import traceback
+        debug_log(f"TRACEBACK: {traceback.format_exc()}")
         # Don't block commands if error learning fails
         print(f"Pre-bash hook warning: {e}", file=sys.stderr)
         sys.exit(0)
