@@ -39,9 +39,18 @@
 Claude Code reads context files in this order:
 
 1. **`CLAUDE.md`** (this file) - Workspace-level configuration
-2. **`.claude/rules.md`** - Auto-generated project context (created by session hooks)
+2. **`CODEBASE.md`** - Auto-generated project context (injected via hook stdout)
 
-> **Note:** `.claude/rules.md` is auto-generated on each session start and contains:
+### Why CODEBASE.md in Project Root?
+
+Context injection requires hook stdout output. `CODEBASE.md` is created in project root for reference:
+
+**How it works:**
+1. `session_hooks.py` creates `CODEBASE.md` in project root (for reference)
+2. Hook outputs content to stdout (for Claude context injection)
+3. Both happen on every session start
+
+> **Note:** `CODEBASE.md` is auto-generated on each session start and contains:
 > - Project type detection (Node.js, Python, etc.)
 > - Framework identification (Next.js, React Native, etc.)
 > - OS-specific terminal commands
@@ -145,6 +154,31 @@ skills/
 ```bash
 pip install rich pydantic
 ```
+
+---
+
+## 📋 Core Principles
+
+### User Confirmation Rule
+
+**CRITICAL:** Before taking any action outside explicit user request, **ALWAYS ask the user first.**
+
+When user request is unclear or could be implemented multiple ways:
+- Ask clarifying questions
+- Offer options with trade-offs
+- Wait for user decision
+- Consider current tool (CLI, extension, etc.) when asking
+
+**Examples:**
+- User: "optimize performance" → Ask: "Which area? Bundle size? Runtime? Database queries?"
+- User: "add authentication" → Ask: "Which method? JWT? Session? OAuth?"
+- User: "fix the bug" → Ask: "Which bug? Can you describe the issue?"
+
+**What requires confirmation:**
+- ❌ NOT: Simple, direct tasks with clear requirements
+- ✅ YES: Ambiguous requests with multiple valid approaches
+- ✅ YES: Changes affecting architecture or multiple files
+- ✅ YES: Installing new dependencies or tools
 
 ---
 

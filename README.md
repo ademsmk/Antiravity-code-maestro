@@ -296,7 +296,7 @@ Hooks are configured in `settings.json`:
         "matcher": "startup",
         "hooks": [{
           "type": "command",
-          "command": "python scripts/session_hooks.py start --silent"
+          "command": "python scripts/session_hooks.py start"
         }]
       }
     ],
@@ -312,6 +312,19 @@ Hooks are configured in `settings.json`:
   }
 }
 ```
+
+### How Context Injection Works
+
+**`CODEBASE.md`** is auto-generated in your project root on every session start:
+
+| Step | Action | Purpose |
+|------|--------|---------|
+| 1 | Hook runs `session_hooks.py start` | Trigger on session start |
+| 2 | Creates `CODEBASE.md` in project root | Reference file for you |
+| 3 | Outputs content to stdout | **Claude receives context** |
+| 4 | Claude reads stdout | Auto-injected project info |
+
+> **Why project root?** Easy to find and reference. Hook stdout ensures Claude always receives context.
 
 ---
 

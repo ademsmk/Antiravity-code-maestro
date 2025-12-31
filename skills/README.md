@@ -71,6 +71,7 @@ Knowledge resources that agents reference for domain expertise. Skills are not d
 | performance-profiling | Performance analysis |
 | systematic-debugging | Debugging methodology |
 | mobile-ux-patterns | Touch gestures, haptics, accessibility |
+| mobile-typography | 🆕 Mobile type scale, responsive typography |
 | git-worktrees | Multi-project workflow |
 | parallel-agents | Multi-agent coordination |
 
@@ -91,4 +92,4 @@ skills/
         └── TEMPLATE.md
 ```
 
-## Total: 40 Skills (+3 Security)
+## Total: 41 Skills (+3 Security)
