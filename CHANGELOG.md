@@ -5,6 +5,30 @@ All notable changes to Maestro will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.0.7] - 2026-01-02
+
+### Added
+- **Native Multi-Agent Orchestration** 🤖
+  - Migration from external Python scripts to Claude's native Agent tool (subagents)
+  - New `commands/orchestrate.md` for triggering multi-agent tasks
+  - Improved context sharing and session continuity during parallel execution
+- **Game Developer Agent** 🎮
+  - New `agents/game-developer.md` specialized in game design and development
+  - Comprehensive `skills/game-development/` library including:
+    - 2D/3D Games, Mobile, PC, Web, VR/AR, Multiplayer, and Game Design patterns
+- **Parallel Agents Skill** ⚡
+  - New `skills/parallel-agents/SKILL.md` for subagent coordination patterns
+
+### Changed
+- **Orchestrator Agent**: Updated to utilize native subagent capabilities for complex project management
+- **Documentation Update**: Global refresh of `CLAUDE.md`, `CODEBASE.md`, and `README.md` with new agent/skill counts
+- **Setup Script**: `scripts/setup.py` updated to reflect the new architecture
+
+### Removed
+- **`scripts/parallel_orchestrator.py`** 🗑️: Removed in favor of native orchestration which provides better session stability and context flow.
+
+---
+
 ## [0.0.6] - 2026-01-01
 
 ### Added
@@ -196,7 +220,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
-[Unreleased]: https://github.com/xenitV1/claude-code-maestro/compare/v0.0.6...HEAD
+[Unreleased]: https://github.com/xenitV1/claude-code-maestro/compare/v0.0.7...HEAD
+[0.0.7]: https://github.com/xenitV1/claude-code-maestro/compare/v0.0.6...v0.0.7
 [0.0.6]: https://github.com/xenitV1/claude-code-maestro/compare/v0.0.5...v0.0.6
 [0.0.5]: https://github.com/xenitV1/claude-code-maestro/compare/v0.0.4...v0.0.5
 [0.0.4]: https://github.com/xenitV1/claude-code-maestro/compare/v0.0.3...v0.0.4
