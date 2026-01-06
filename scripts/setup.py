@@ -128,7 +128,7 @@ def show_features():
 
     table.add_row("Scripts", "Automation hooks & utilities", "7")
     table.add_row("Agents", "Specialized AI personas", "17")
-    table.add_row("Skills", "Knowledge resources & patterns", "69")
+    table.add_row("Skills", "Knowledge resources & patterns", "78")
     table.add_row("Commands", "Slash commands for Claude", "10")
     table.add_row("Templates", "Project scaffolds", "12")
 

@@ -165,6 +165,9 @@ def detect_project_type(project_path: str, max_depth: int = 3) -> Dict[str, Any]
                 elif "vue" in deps:
                     result["framework"] = "vue"
                     result["platform"] = "web"
+                elif "@ionic/react" in deps or "@ionic/vue" in deps or "@capacitor/core" in deps:
+                    result["framework"] = "ionic-capacitor"
+                    result["platform"] = "mobile"
                 else:
                     result["framework"] = "node"
                     result["platform"] = "general"
@@ -206,6 +209,15 @@ def detect_project_type(project_path: str, max_depth: int = 3) -> Dict[str, Any]
                 "projectType": "go",
                 "framework": "go",
                 "platform": "general",
+                "detectedAt": str(current_path)
+            }
+
+        # Flutter project
+        if (current_path / "pubspec.yaml").exists():
+            return {
+                "projectType": "flutter",
+                "framework": "flutter",
+                "platform": "mobile",
                 "detectedAt": str(current_path)
             }
 

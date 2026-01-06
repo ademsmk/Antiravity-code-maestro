@@ -240,6 +240,9 @@ def count_files_in_dir(path: Path) -> Tuple[int, Dict[str, int]]:
     try:
         for item in path.rglob('*'):
             if item.is_file():
+                # Skip files in excluded directories
+                if any(excluded in item.parts for excluded in EXCLUDE_DIRS):
+                    continue
                 count += 1
                 ext = item.suffix.lower() or 'no-ext'
                 by_extension[ext] = by_extension.get(ext, 0) + 1
@@ -324,7 +327,8 @@ class SmartTreeGenerator:
                         continue
                     
                     # Check if too many items in this dir (non-priority)
-                    if not is_priority_dir(item.name):
+                    # BUT never collapse first-level dirs (depth 1) - these are main project folders
+                    if not is_priority_dir(item.name) and depth > 1:
                         subitem_count = sum(1 for _ in item.iterdir()) if item.exists() else 0
                         if subitem_count > MAX_ITEMS_BEFORE_SUMMARY:
                             summary = format_dir_summary(item)
