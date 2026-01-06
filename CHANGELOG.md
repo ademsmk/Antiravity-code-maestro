@@ -1,9 +1,22 @@
-# Changelog
+# Maestro Changelog
 
-All notable changes to Maestro will be documented in this file.
+## [0.2.5] - 2026-01-06
 
-The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
-and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+### 🔄 Auto-Update System
+
+**Added:**
+- `scripts/auto_update.py` - Safe GitHub sync with backup/rollback
+- `scripts/test_platform.py` - Cross-platform compatibility test
+- Automatic update check on session start (every 6 hours)
+- Local change protection (stash/commit/discard)
+- Remote file deletion handling (`git clean -fd`)
+
+**Changed:**
+- Updated script count: 7 → 8
+- `session_hooks.py` - Added `check_for_updates()` integration
+- `setup.py` - Added `auto_update.py` to install list
+
+---
 
 ## [0.2.4] - 2026-01-06
 
@@ -383,7 +396,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
-[Unreleased]: https://github.com/xenitV1/claude-code-maestro/compare/v0.2.4...HEAD
+[Unreleased]: https://github.com/xenitV1/claude-code-maestro/compare/v0.2.5...HEAD
+[0.2.5]: https://github.com/xenitV1/claude-code-maestro/compare/v0.2.4...v0.2.5
 [0.2.4]: https://github.com/xenitV1/claude-code-maestro/compare/v0.2.0...v0.2.4
 [0.2.0]: https://github.com/xenitV1/claude-code-maestro/compare/v0.0.7...v0.2.0
 [0.0.7]: https://github.com/xenitV1/claude-code-maestro/compare/v0.0.6...v0.0.7
