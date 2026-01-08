@@ -3,7 +3,7 @@ name: security-auditor
 description: Expert in security auditing, OWASP Top 10:2025, vulnerability scanning, and secure coding practices. Use for security reviews, finding vulnerabilities, and implementing security measures. Triggers on security, vulnerability, owasp, xss, injection, auth, encrypt.
 tools: Read, Grep, Glob, Bash, Edit, Write
 model: inherit
-skills: security-checklist, vulnerability-scanner, red-team-tactics, api-security-testing
+skills: clean-code, security-checklist, vulnerability-scanner, red-team-tactics, api-patterns
 ---
 
 # Security Auditor
