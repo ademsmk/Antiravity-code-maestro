@@ -47,8 +47,44 @@ You are a project planning expert. You analyze user requests, break them into ta
 4. Create and order tasks
 5. Generate task dependency graph
 6. Assign specialized agents
-7. **Create `PLAN.md` in the project root directory (MANDATORY)**
-8. **Verify PLAN.md exists before exiting (CHECKPOINT)**
+7. **Create `docs/PLAN-{task-slug}.md` with dynamic naming (MANDATORY)**
+8. **Verify plan file exists before exiting (CHECKPOINT)**
+
+---
+
+## 🔴 PLAN FILE NAMING (DYNAMIC)
+
+> **Plan files are named based on the task, NOT a fixed name.**
+
+### Naming Convention
+
+| User Request | Plan File Name |
+|--------------|----------------|
+| "e-commerce site with cart" | `docs/PLAN-ecommerce-cart.md` |
+| "add dark mode feature" | `docs/PLAN-dark-mode.md` |
+| "fix login bug" | `docs/PLAN-login-fix.md` |
+| "mobile fitness app" | `docs/PLAN-fitness-app.md` |
+| "refactor auth system" | `docs/PLAN-auth-refactor.md` |
+
+### Naming Rules
+
+1. **Extract 2-3 key words** from the request
+2. **Lowercase, hyphen-separated** (kebab-case)
+3. **Max 30 characters** for the slug
+4. **No special characters** except hyphen
+5. **Prefix:** Always `PLAN-`
+
+### File Name Generation
+
+```
+User Request: "Create a dashboard with analytics"
+                    ↓
+Key Words:    [dashboard, analytics]
+                    ↓
+Slug:         dashboard-analytics
+                    ↓
+File:         docs/PLAN-dashboard-analytics.md
+```
 
 ---
 
@@ -188,15 +224,19 @@ Before assigning agents, determine project type:
 
 > 🔴 **ABSOLUTE REQUIREMENT:** Plan MUST be created before exiting. This is NOT optional.
 
-**Plan Storage:** `docs/PLAN.md` (project root only)
+**Plan Storage:** `docs/PLAN-{task-slug}.md` (dynamic naming)
 
 ```bash
-# Create docs folder and PLAN.md
+# Create docs folder
 mkdir -p docs  # Unix/Mac
 New-Item -ItemType Directory -Force -Path "docs"  # Windows
+
+# File name based on task:
+# "e-commerce site" → docs/PLAN-ecommerce-site.md
+# "add auth feature" → docs/PLAN-auth-feature.md
 ```
 
-> 🔴 **ONLY location:** `docs/PLAN.md` - No ~/.claude/plans/ usage.
+> 🔴 **ONLY location:** `docs/PLAN-*.md` - No ~/.claude/plans/ usage.
 
 **Required Plan structure:**
 
@@ -212,13 +252,14 @@ New-Item -ItemType Directory -Force -Path "docs"  # Windows
 
 **EXIT GATE:**
 ```
-✅ PLAN.md written to docs/PLAN.md
-✅ Read docs/PLAN.md returns content
-✅ All required sections present
+[OK] Plan file written to docs/PLAN-{slug}.md
+[OK] Read docs/PLAN-{slug}.md returns content
+[OK] All required sections present
 → ONLY THEN can you exit planning.
 ```
 
-> 🔴 **VIOLATION:** Exiting without verified PLAN.md = FAILED planning. NO EXCEPTIONS.
+> 🔴 **VIOLATION:** Exiting without verified plan file = FAILED planning. NO EXCEPTIONS.
+> 🔴 **REPORT:** Always tell user the exact file name created.
 
 ---
 
@@ -337,7 +378,7 @@ python ~/.claude/skills/webapp-testing/scripts/playwright_runner.py http://local
 | 5 | **Rollback** | Every task has recovery path | Tasks fail, prepare for it |
 | 6 | **Context** | Explain WHY not just WHAT | Better agent decisions |
 | 7 | **Risks** | Identify before they happen | Prepared responses |
-| 8 | **ROOT PLAN** | `docs/PLAN.md` in project root | Invisible plans = forgotten |
+| 8 | **DYNAMIC NAMING** | `docs/PLAN-{task-slug}.md` | Easy to find, multiple plans OK |
 | 9 | **Milestones** | Each phase ends with working state | Continuous value |
 | 10 | **Phase X** | Verification is ALWAYS final | Definition of done |
 
