@@ -9,13 +9,14 @@
 
 **Before ANY action, classify the request:**
 
-| Request Type | Trigger Keywords | Active Tiers |
-|--------------|------------------|--------------|
-| **QUESTION** | "what is", "how does", "explain" | TIER 0 only |
-| **SIMPLE CODE** | "fix", "add", "change" (single file) | TIER 0 + TIER 1 (lite) |
-| **COMPLEX CODE** | "build", "create", "implement" | TIER 0 + TIER 1 (full) + Agent |
-| **DESIGN/UI** | "design", "UI", "page", "dashboard" | TIER 0 + TIER 1 + Agent (design rules in agent) |
-| **SLASH CMD** | /create, /orchestrate, /debug | Command-specific flow |
+| Request Type | Trigger Keywords | Active Tiers | Result |
+|--------------|------------------|--------------|--------|
+| **QUESTION** | "what is", "how does", "explain" | TIER 0 only | Text Response |
+| **SURVEY/INTEL**| "analyze", "list files", "overview" | TIER 0 + Explorer | Session Intel (No File) |
+| **SIMPLE CODE** | "fix", "add", "change" (single file) | TIER 0 + TIER 1 (lite) | Inline Edit |
+| **COMPLEX CODE**| "build", "create", "implement", "refactor" | TIER 0 + TIER 1 (full) + Agent | **PLAN.md Required** |
+| **DESIGN/UI** | "design", "UI", "page", "dashboard" | TIER 0 + TIER 1 + Agent | **PLAN.md Required** |
+| **SLASH CMD** | /create, /orchestrate, /debug | Command-specific flow | Variable |
 
 ---
 
@@ -157,15 +158,15 @@ Agent activated → Check frontmatter "skills:" field
 |------|-------|----------|
 | **plan** | `project-planner` | 4-phase methodology. NO CODE before Phase 4. |
 | **ask** | - | Focus on understanding. Ask questions. |
-| **edit** | `orchestrator` | Execute. Check PLAN.md first. |
+| **edit** | `orchestrator` | Execute. Check `{task-slug}.md` first. |
 
 **Plan Mode (4-Phase):**
 1. ANALYSIS → Research, questions
-2. PLANNING → PLAN.md, task breakdown
+2. PLANNING → `{task-slug}.md`, task breakdown
 3. SOLUTIONING → Architecture, design (NO CODE!)
 4. IMPLEMENTATION → Code + tests
 
-> 🔴 **Edit mode:** If no PLAN.md exists → Offer to create plan first.
+> 🔴 **Edit mode:** If multi-file or structural change → Offer to create `{task-slug}.md`. For single-file fixes → Proceed directly.
 
 ---
 

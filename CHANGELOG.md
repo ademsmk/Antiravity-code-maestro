@@ -1,5 +1,28 @@
 # Maestro Changelog
 
+## [0.3.3] - 2026-01-11
+
+### 🧠 Intelligent Planning & Dynamic Naming
+
+### Added
+
+#### Analytical Mode (Survey)
+- **`project-planner.md`** → Introduced **Analytical vs. Planning Mode**
+  - **SURVEY Mode:** Triggers on "analyze", "find", "explain". Research only, no plan file created.
+  - **PLANNING Mode:** Triggers on "build", "refactor", "create". Mandatory plan file required.
+- **`CLAUDE.md`** → New **SURVEY/INTEL** request classification to prevent over-triggering the planning agent.
+
+#### Dynamic Naming Enforcement
+- **`project-planner.md`** → Strict ban on generic names like `plan.md`, `PLAN.md`, or `plan.dm`.
+- **`CLAUDE.md`** & **`SKILL.md`** → All hardcoded `PLAN.md` references replaced with dynamic `{task-slug}.md` placeholders.
+- Forced task-based naming (e.g., `auth-feature.md` instead of `plan.md`) for better project organization.
+
+### Changed
+- **`CLAUDE.md`** → **Edit Mode** logic softened: Only suggests a plan for multi-file/structural changes. Single-file fixes proceed directly.
+- **`project-planner.md`** → Standardized all naming convention rules to project root.
+
+---
+
 ## [0.3.2] - 2026-01-09
 
 ### 🔧 Documentation Reduction & Workflow Improvements
