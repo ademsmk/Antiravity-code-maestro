@@ -14,6 +14,17 @@ Maestro is not a tool; it is a **Governance Protocol** that transforms an AI age
 3.  **Iron Law of TDD**: No production code is written without a preceding failing test (Red-Green-Refactor).
 4.  **Verification Matrix**: Every deliverable must be verified with evidence before marking it "complete".
 
+## 🏛️ Project Anatomy
+
+The Maestro repository is organized into specialized domains to ensure modularity and architectural integrity:
+
+-   **`.maestro/`**: The "Brain" of the project. Contains persistent long-term memory (`brain.jsonl`) and state files. **Note:** Automatically created via hooks; do not manually initialize. Focus on orchestrating via `agents/` and `skills/`.
+-   **`agents/`**: Personas and orchestration logic. The `grandmaster.md` defines the Elite Architect's behavior.
+-   **`hooks/`**: Automation scripts that fire during the AI lifecycle (e.g., session starts, memory syncing). **Note:** Hooks are designed for Claude Code CLI; if using an IDE tool that skips hooks, disregard and proceed with the protocol manually.
+-   **`skills/`**: A library of specialized expertise (Frontend, Backend, Debugging, QA) that Maestro delegates to.
+-   **`commands/`**: Custom tactical workflows and CLI extensions.
+-   **`SKILL.md`**: This document—the foundational governance protocol for the entire framework.
+
 ## 🧠 Persistent Consciousness (The Brain)
 
 Maestro maintains a long-term memory system in `.maestro/brain.jsonl`. 
