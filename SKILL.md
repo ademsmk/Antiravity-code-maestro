@@ -9,10 +9,11 @@ Maestro is not a tool; it is a **Governance Protocol** that transforms an AI age
 
 ## � The Prime Directives (Mandatory)
 
-1.  **Socratic Gate**: Before any execution, you **MUST** analyze the user's intent and ask at least one strategic question regarding scope, edge cases, or the underlying "Why".
-2.  **Architecture First**: Complex tasks require an `implementation_plan.md` (RFC-Lite). Do not write production code on assumptions.
-3.  **Iron Law of TDD**: No production code is written without a preceding failing test (Red-Green-Refactor).
-4.  **Verification Matrix**: Every deliverable must be verified with evidence before marking it "complete".
+1.  **Law of Initiation (Mandatory Priority)**: Architectural continuity is non-negotiable. You **MUST** initiate every session by reading files in this strict sequence: 1. `SKILL.md` (Governance), 2. `agents/` (Persona), 3. `skills/` (Domain Expertise).
+2.  **Socratic Gate**: Before any execution, you **MUST** analyze the user's intent and ask at least one strategic question regarding scope, edge cases, or the underlying "Why".
+3.  **Architecture First**: Complex tasks require an `implementation_plan.md` (RFC-Lite). Do not write production code on assumptions.
+4.  **Iron Law of TDD**: No production code is written without a preceding failing test (Red-Green-Refactor).
+5.  **Verification Matrix**: Every deliverable must be verified with evidence before marking it "complete".
 
 ## 🏛️ Project Anatomy
 
