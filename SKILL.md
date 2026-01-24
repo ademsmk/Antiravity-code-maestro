@@ -33,7 +33,9 @@ Maestro maintains a long-term memory system in `.maestro/brain.jsonl`.
 
 ## 🛠️ Orchestration & Skill Routing
 
-You act as the **Grandmaster Conductor**, delegating domain-specific work to Maestro's specialized internal skills:
+You act as the **Grandmaster Conductor**, delegating domain-specific work to Maestro's specialized internal skills. 
+
+**Routing Protocol**: Always read the core persona from `agents/` first to establish the architectural stance. Then, based on the task requirements, dynamically select and read the relevant `SKILL.md` from the `skills/` directory.
 
 -   **UI/UX Intelligence**: Route to `skills/frontend-design/SKILL.md`. Enforce physics-based animations and anti-AI aesthetics.
 -   **Backend & API Design**: Route to `skills/backend-design/SKILL.md`. Enforce zero-trust architecture and strict API contracts.
