@@ -1,39 +1,27 @@
 # Maestro: AI Development Orchestrator
 
-Elite-tier orchestration framework for Claude Code CLI. Supercharges AI development through specialized agents, modular skills, intelligent hooks, and persistent memory systems.
+Elite-tier orchestration framework for Antigravity platform. Supercharges AI development through specialized agents, modular skills, intelligent hooks, and persistent memory systems.
 
-> **Version:** 0.6.0  
-> **Author:** [xenitV1](https://github.com/xenitV1) • [X/Twitter](https://x.com/xenit_v0)  
+> **Version:** 1.0.0  
+> **Author:** Adem SAMUK • [GitHub](https://github.com/ademsmk/Antiravity-code-maestro)  
 > **Philosophy:** "Why over How. Architecture precedes implementation."
 
-## Quick Start
+## Quick Start (Antigravity)
 
-### Installation
+### Antigravity Agent Integration
 
-**One-line Install (Skills.sh):**
-```bash
-npx skills add xenitV1/claude-code-maestro
-```
-
-**Manual Plugin Install:**
-Maestro is distributed as a Claude Code Plugin. To install it manually:
-
-```bash
-# 1. Add Maestro as a marketplace
-/plugin marketplace add xenitV1/claude-code-maestro
-
-# 2. Install the Maestro plugin
-/plugin install maestro@xenitV1-claude-code-maestro
-```
+1. Place the `.agent` folder in your project root.
+2. Configure your agent in `.agent/agent.json` as described in [Antigravity Agent Docs](https://antigravity.google/docs/agent).
+3. Use the Antigravity platform to manage and run your agent.
 
 ### Prerequisites
 
 - **Node.js 18+** (required for hooks)
-- Claude Code CLI
+- Antigravity platform account
 
 ### Usage
 
-Since Maestro is a plugin, its commands are namespaced. Use the format `/maestro:command`.
+On Antigravity, use the Agent panel or command interface to interact with Maestro.
 
 ```bash
 # Basic orchestration
@@ -79,43 +67,21 @@ Since Maestro is a plugin, its commands are namespaced. Use the format `/maestro
 
 ## Project Structure
 
-```
 maestro/
-├── .claude-plugin/
-│   └── plugin.json          # Plugin manifest
-├── agents/
-│   └── grandmaster.md       # Central orchestrator agent
-├── commands/
-│   └── maestro.md           # /maestro slash command
-├── hooks/
-│   ├── hooks.json           # Hook configuration
-│   ├── lib/                 # Shared JS utilities
-│   │   ├── utils.js         # Cross-platform utilities
-│   │   ├── brain.js         # LTM operations
-│   │   └── ralph.js         # Ralph state management
-│   ├── session-start.js     # Tech stack detection + LTM injection
-│   ├── brain-sync.js        # LTM sync (PostToolUse)
-│   ├── stop.js              # Ralph Wiggum iteration
-│   ├── ralph.js             # QA enforcement
-│   ├── sentinel.js          # Change detection
-│   └── pre-maestro.js       # Skill recommendation
-├── skills/
-│   ├── clean-code/          # Code quality standards
-│   ├── frontend-design/     # Elite UI/UX
-│   ├── backend-design/      # API & Database patterns
-│   ├── tdd-mastery/         # Test-Driven Development
-│   ├── debug-mastery/       # Systematic debugging
-│   ├── verification-mastery/# Evidence-based completion
-│   ├── brainstorming/       # Design-first methodology
-│   ├── planning-mastery/    # Implementation planning
-│   ├── git-worktrees/       # Isolated workspaces
-│   ├── ralph-wiggum/        # Autonomous QA system
-│   ├── browser-extension/   # Extension development
-│   └── optimization-mastery/# Performance optimization
+├── .agent/
+│   ├── agents/              # Personas (grandmaster.md)
+│   ├── commands/            # Custom commands (/maestro)
+│   ├── skills/              # Specialized expertise domains
+│   └── workflows/           # Hooks & automation scripts
+│       ├── hooks.json       # Hook configuration
+│       └── lib/             # Shared utilities
+│   ├── agent.json           # Agent configuration
+│   └── README.md            # Agent specific docs
 ├── package.json             # Node.js metadata
 ├── LICENSE                  # MIT License
-└── README.md
-```
+├── README.md                # English Documentation
+├── README_tr.md             # Turkish Documentation
+└── SKILL.md                 # Governance Protocol
 
 ## Memory Systems
 
@@ -163,7 +129,7 @@ Activate with: `ralph N iterations` or "Ralph Wiggum mode"
 
 | Platform | Rating | Notes |
 |----------|--------|-------|
-| **Claude Code CLI** | ⭐⭐⭐⭐⭐ | Native environment, full functionality |
+| **Antigravity** | ⭐⭐⭐⭐⭐ | Native environment, full functionality |
 | **Windows** | ⭐⭐⭐⭐⭐ | Full cross-platform support |
 | **macOS** | ⭐⭐⭐⭐⭐ | Full cross-platform support |
 | **Linux** | ⭐⭐⭐⭐⭐ | Full cross-platform support |
@@ -191,14 +157,13 @@ Several skills were inspired by and adapted from [obra/superpowers](https://gith
 
 ## Star History
 
-[![Star History Chart](https://api.star-history.com/svg?repos=xenitV1/claude-code-maestro&type=Date)](https://star-history.com/#xenitV1/claude-code-maestro&Date)
+
 
 ## Author
 
-Created and maintained by **[xenitV1](https://github.com/xenitV1)**
+Created and maintained by **[ademsmk](https://github.com/ademsmk/Antiravity-code-maestro)**
 
-- GitHub: [github.com/xenitV1](https://github.com/xenitV1)
-- X/Twitter: [x.com/xenit_v0](https://x.com/xenit_v0)
+- GitHub: [github.com/ademsmk/Antiravity-code-maestro](https://github.com/ademsmk/Antiravity-code-maestro)
 
 ## License
 
@@ -206,4 +171,4 @@ MIT License - See [LICENSE](LICENSE) for details.
 
 ---
 
-*Orchestrating the future of autonomous development.*
+*Orchestrating the future of autonomous development for Antigravity.*

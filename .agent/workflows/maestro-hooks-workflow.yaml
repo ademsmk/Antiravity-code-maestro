@@ -1,0 +1,20 @@
+# Maestro Hooks Workflow (Antigravity)
+
+name: maestro-hooks
+
+description: |
+  Integrates Maestro's session, sync, and QA hooks as an Antigravity workflow. 
+  Each step can call a Node.js script from the original hooks directory.
+
+steps:
+  - name: Session Start
+    run: node ../../hooks/session-start.js
+  - name: Pre-Compact
+    run: node ../../hooks/pre-compact.js
+  - name: Brain Sync
+    run: node ../../hooks/brain-sync.js
+  - name: Stop (QA/Iteration)
+    run: node ../../hooks/stop.js
+
+# Not: Daha gelişmiş kontrol ve koşullar için Antigravity'nin workflow dokümantasyonuna bakınız.
+# Ek scriptler ve lib/ altındaki yardımcılar, ilgili adımlarda require/import ile kullanılabilir.

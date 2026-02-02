@@ -13,31 +13,31 @@ const os = require('os');
  * Find the project root directory.
  * 
  * Priority order:
- * 1. CLAUDE_PROJECT_DIR environment variable (set by Claude Code)
- * 2. CLAUDE_WORKING_DIR environment variable (fallback)
+ * 1. AGENT_PROJECT_DIR environment variable (set by Antigravity)
+ * 2. AGENT_WORKING_DIR environment variable (fallback)
  * 3. Search upward from current directory for root markers
  * 
  * @param {string} [startDir] - Starting directory for search
  * @returns {string} Project root path
  */
 function findProjectRoot(startDir = null) {
-  // Priority 1: Use CLAUDE_PROJECT_DIR if set by Claude Code
-  const claudeProjectDir = process.env.CLAUDE_PROJECT_DIR;
-  if (claudeProjectDir && fs.existsSync(claudeProjectDir)) {
-    logDebug('[UTILS]', `Project root from CLAUDE_PROJECT_DIR: ${claudeProjectDir}`);
-    return claudeProjectDir;
+  // Priority 1: Use AGENT_PROJECT_DIR if set by Antigravity
+  const agentProjectDir = process.env.AGENT_PROJECT_DIR;
+  if (agentProjectDir && fs.existsSync(agentProjectDir)) {
+    logDebug('[UTILS]', `Project root from AGENT_PROJECT_DIR: ${agentProjectDir}`);
+    return agentProjectDir;
   }
 
-  // Priority 2: Use CLAUDE_WORKING_DIR if set
-  const claudeWorkingDir = process.env.CLAUDE_WORKING_DIR;
-  if (claudeWorkingDir && fs.existsSync(claudeWorkingDir)) {
-    logDebug('[UTILS]', `Project root from CLAUDE_WORKING_DIR: ${claudeWorkingDir}`);
-    return claudeWorkingDir;
+  // Priority 2: Use AGENT_WORKING_DIR if set
+  const agentWorkingDir = process.env.AGENT_WORKING_DIR;
+  if (agentWorkingDir && fs.existsSync(agentWorkingDir)) {
+    logDebug('[UTILS]', `Project root from AGENT_WORKING_DIR: ${agentWorkingDir}`);
+    return agentWorkingDir;
   }
 
   // Priority 3: Search upward from startDir
   let current = path.resolve(startDir || process.cwd());
-  const rootMarkers = ['.git', 'package.json', '.claude', 'pyproject.toml', 'Cargo.toml'];
+  const rootMarkers = ['.git', 'package.json', '.agent', 'pyproject.toml', 'Cargo.toml'];
 
   // Walk up the directory tree
   while (true) {
@@ -92,34 +92,34 @@ function ensureMaestroDir(projectRoot = null) {
  * @returns {string} Plugin root path
  */
 function getPluginRoot() {
-  return process.env.CLAUDE_PLUGIN_ROOT || path.resolve(__dirname, '..', '..');
+  return process.env.AGENT_PLUGIN_ROOT || path.resolve(__dirname, '..', '..');
 }
 
 /**
- * Get the Claude projects directory (cross-platform).
+ * Get the Antigravity agent projects directory (cross-platform).
  * 
- * @returns {string} Claude projects directory path
+ * @returns {string} Antigravity agent projects directory path
  */
-function getClaudeProjectsDir() {
+function getAgentProjectsDir() {
   if (process.platform === 'win32') {
-    // Windows: Claude Code uses USERPROFILE\.claude\projects (not APPDATA)
+    // Windows: Antigravity uses USERPROFILE\.agent\projects (not APPDATA)
     // Check both locations for compatibility
     const userProfile = process.env.USERPROFILE || os.homedir();
-    const userProfilePath = path.join(userProfile, '.claude', 'projects');
+    const userProfilePath = path.join(userProfile, '.agent', 'projects');
     if (fs.existsSync(userProfilePath)) {
       return userProfilePath;
     }
     // Fallback to APPDATA for older installations
     const appData = process.env.APPDATA || path.join(os.homedir(), 'AppData', 'Roaming');
-    return path.join(appData, '.claude', 'projects');
+    return path.join(appData, '.agent', 'projects');
   }
   // macOS/Linux: Use home directory
-  return path.join(os.homedir(), '.claude', 'projects');
+  return path.join(os.homedir(), '.agent', 'projects');
 }
 
 /**
- * Normalize a project path for Claude's folder naming convention.
- * Claude Code normalizes paths: C:\Users\foo -> C--Users-foo
+ * Normalize a project path for Antigravity's folder naming convention.
+ * Antigravity normalizes paths: C:\Users\foo -> C--Users-foo
  * 
  * @param {string} rawPath - Raw file system path
  * @returns {string} Normalized path string
@@ -395,7 +395,7 @@ module.exports = {
   getMaestroDir,
   ensureMaestroDir,
   getPluginRoot,
-  getClaudeProjectsDir,
+  getAgentProjectsDir,
   isGitProject,
   getGitDirtyFiles,
   saveState,

@@ -1,7 +1,7 @@
 # Changelog
 
 
-**Author:** [xenitV1](https://github.com/xenitV1) | [X/Twitter](https://x.com/xenit_v0)
+**Author:** [ademsmk] | [GitHub](https://github.com/ademsmk/Antiravity-code-maestro) | [X/Twitter](https://x.com/smk_adem)
 
 ---
 
@@ -40,7 +40,7 @@ This version marks a turning point where the project has completely transformed 
 
 ## Pre-1.0 History (Python Version)
 
-The following versions document the original Python-based implementation at [claude-code-maestro](https://github.com/xenitV1/claude-code-maestro).
+The following versions document the original Python-based implementation at [antigravity-code-maestro](https://github.com/ademsmk/Antiravity-code-maestro).
 
 ---
 
@@ -260,17 +260,5 @@ The following versions document the original Python-based implementation at [cla
 
 ---
 
-[0.6.0]: https://github.com/xenitV1/claude-code-maestro/compare/v0.3.3...v0.6.0
-[0.3.3]: https://github.com/xenitV1/claude-code-maestro/compare/v0.3.2...v0.3.3
-[0.3.2]: https://github.com/xenitV1/claude-code-maestro/compare/v0.3.1...v0.3.2
-[0.3.1]: https://github.com/xenitV1/claude-code-maestro/compare/v0.3.0...v0.3.1
-[0.3.0]: https://github.com/xenitV1/claude-code-maestro/compare/v0.2.4...v0.3.0
-[0.2.4]: https://github.com/xenitV1/claude-code-maestro/compare/v0.2.0...v0.2.4
-[0.2.0]: https://github.com/xenitV1/claude-code-maestro/compare/v0.0.7...v0.2.0
-[0.0.7]: https://github.com/xenitV1/claude-code-maestro/compare/v0.0.6...v0.0.7
-[0.0.6]: https://github.com/xenitV1/claude-code-maestro/compare/v0.0.5...v0.0.6
-[0.0.5]: https://github.com/xenitV1/claude-code-maestro/compare/v0.0.4...v0.0.5
-[0.0.4]: https://github.com/xenitV1/claude-code-maestro/compare/v0.0.3...v0.0.4
-[0.0.3]: https://github.com/xenitV1/claude-code-maestro/compare/v0.0.2...v0.0.3
-[0.0.2]: https://github.com/xenitV1/claude-code-maestro/compare/v0.0.1...v0.0.2
-[0.0.1]: https://github.com/xenitV1/claude-code-maestro/releases/tag/v0.0.1
+[0.6.0]: https://github.com/ademsmk/Antiravity-code-maestro/compare/v0.6.0
+

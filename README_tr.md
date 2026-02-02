@@ -1,33 +1,28 @@
 # Maestro: Yapay Zeka Geliştirme Orkestratörü
 
-Claude Code CLI için elit seviye orkestrasyon çerçevesi. Özelleşmiş ajanlar, modüler beceriler, akıllı hook sistemi ve kalıcı bellek sistemleri aracılığıyla yapay zeka geliştirmeyi güçlendirir.
+Antigravity platformu için elit seviye orkestrasyon çerçevesi. Özelleşmiş ajanlar, modüler beceriler, akıllı hook sistemi ve kalıcı bellek sistemleri aracılığıyla yapay zeka geliştirmeyi güçlendirir.
 
-> **Versiyon:** 0.6.0  
-> **Yazar:** [xenitV1](https://github.com/xenitV1) • [X/Twitter](https://x.com/xenit_v0)  
+> **Versiyon:** 1.0.0  
+> **Yazar:** [ademsmk](https://github.com/ademsmk/Antiravity-code-maestro) • [GitHub](https://github.com/ademsmk/Antiravity-code-maestro)  
 > **Felsefe:** "Nasıl'dan önce Neden. Mimari, uygulamadan önce gelir."
 
 ## Hızlı Başlangıç
 
 ### Kurulum
 
-Maestro bir Claude Code eklentisi (plugin) olarak dağıtılır. Kurmak için önce repoyu bir "marketplace" olarak eklemeniz gerekir:
-
-```bash
-# 1. Maestro reposunu marketplace olarak ekleyin
-/plugin marketplace add xenitV1/claude-code-maestro
-
-# 2. Maestro eklentisini kurun
-/plugin install maestro@xenitV1-claude-code-maestro
-```
+Antigravity Agent Entegrasyonu:
+1. Proje kök dizinine `.agent` klasörünü ekleyin.
+2. `.agent/agent.json` dosyasını [Antigravity Agent Dokümantasyonu](https://antigravity.google/docs/agent) doğrultusunda yapılandırın.
+3. Maestro Agent'ı Antigravity platformunda yönetin ve çalıştırın.
 
 ### Önkoşullar
 
 - **Node.js 18+** (hook sistemi için gereklidir)
-- Claude Code CLI
+- Antigravity platform hesabı
 
 ### Kullanım
 
-Maestro bir eklenti (plugin) olduğu için komutları isim alanı (namespace) gerektirir. `/maestro:komut` formatını kullanın.
+Antigravity üzerinde Agent paneli veya komut arayüzü ile Maestro ile etkileşime geçebilirsiniz.
 
 ```bash
 # Basic orchestration
@@ -73,43 +68,21 @@ Maestro bir eklenti (plugin) olduğu için komutları isim alanı (namespace) ge
 
 ## Proje Yapısı
 
-```
 maestro/
-├── .claude-plugin/
-│   └── plugin.json          # Plugin manifestosu
-├── agents/
-│   └── grandmaster.md       # Merkezi orkestratör ajan
-├── commands/
-│   └── maestro.md           # /maestro slash komutu
-├── hooks/
-│   ├── hooks.json           # Hook konfigürasyonu
-│   ├── lib/                 # Paylaşılan JS yardımcıları
-│   │   ├── utils.js         # Platformlar arası yardımcılar
-│   │   ├── brain.js         # LTM işlemleri
-│   │   └── ralph.js         # Ralph durum yönetimi
-│   ├── session-start.js     # Tech stack tespiti + LTM enjeksiyonu
-│   ├── brain-sync.js        # LTM senkronizasyonu (PostToolUse)
-│   ├── stop.js              # Ralph Wiggum iterasyonu
-│   ├── ralph.js             # QA zorlaması
-│   ├── sentinel.js          # Değişiklik algılama
-│   └── pre-maestro.js       # Beceri önerisi
-├── skills/
-│   ├── clean-code/          # Kod kalite standartları
-│   ├── frontend-design/     # Elit UI/UX
-│   ├── backend-design/      # API & Veritabanı kalıpları
-│   ├── tdd-mastery/         # Test Odaklı Geliştirme
-│   ├── debug-mastery/       # Sistematik hata ayıklama
-│   ├── verification-mastery/# Kanıt tabanlı tamamlama
-│   ├── brainstorming/       # Tasarım öncelikli metodoloji
-│   ├── planning-mastery/    # Uygulama planlama
-│   ├── git-worktrees/       # İzole çalışma alanları
-│   ├── ralph-wiggum/        # Otonom QA sistemi
-│   ├── browser-extension/   # Tarayıcı eklentisi geliştirme
-│   └── optimization-mastery/# Performans optimizasyonu
+├── .agent/
+│   ├── agents/              # Ajanlar (grandmaster.md)
+│   ├── commands/            # Özel komutlar (/maestro)
+│   ├── skills/              # Uzmanlık becerileri
+│   └── workflows/           # Otomasyon scriptleri (hook'lar)
+│       ├── hooks.json       # Hook yapılandırması
+│       └── lib/             # Ortak araçlar
+│   ├── agent.json           # Agent yapılandırması
+│   └── README.md            # Agent dokümantasyonu
 ├── package.json             # Node.js meta verileri
 ├── LICENSE                  # MIT Lisansı
-└── README.md
-```
+├── README.md                # İngilizce Dokümantasyon
+├── README_tr.md             # Türkçe Dokümantasyon
+└── SKILL.md                 # Yönetişim Protokolü
 
 ## Bellek Sistemleri
 
@@ -157,7 +130,7 @@ Aktifleştirme: `ralph N iterasyon` veya "Ralph Wiggum modu"
 
 | Platform | Puan | Notlar |
 |----------|------|--------|
-| **Claude Code CLI** | ⭐⭐⭐⭐⭐ | Doğal ortam, tam işlevsellik |
+| **Antigravity** | ⭐⭐⭐⭐⭐ | Doğal ortam, tam işlevsellik |
 | **Windows** | ⭐⭐⭐⭐⭐ | Tam platformlar arası destek |
 | **macOS** | ⭐⭐⭐⭐⭐ | Tam platformlar arası destek |
 | **Linux** | ⭐⭐⭐⭐⭐ | Tam platformlar arası destek |
@@ -185,14 +158,14 @@ Birçok beceri [obra/superpowers](https://github.com/obra/superpowers) projesind
 
 ## Yıldız Geçmişi
 
-[![Star History Chart](https://api.star-history.com/svg?repos=xenitV1/claude-code-maestro&type=Date)](https://star-history.com/#xenitV1/claude-code-maestro&Date)
+
 
 ## Yazar
 
-**[xenitV1](https://github.com/xenitV1)** tarafından oluşturuldu ve sürdürülüyor.
+**[ademsmk](https://github.com/ademsmk/Antiravity-code-maestro)** tarafından oluşturuldu ve sürdürülüyor.
 
-- GitHub: [github.com/xenitV1](https://github.com/xenitV1)
-- X/Twitter: [x.com/xenit_v0](https://x.com/xenit_v0)
+- GitHub: [github.com/ademsmk/Antiravity-code-maestro](https://github.com/ademsmk/Antiravity-code-maestro)
+- X/Twitter: [x.com/smk_adem](https://x.com/smk_adem)
 
 ## Lisans
 
@@ -200,4 +173,4 @@ MIT Lisansı - Detaylar için [LICENSE](LICENSE) dosyasına bakınız.
 
 ---
 
-*Otonom geliştirmenin geleceğini orkestre ediyoruz.*
+*Otonom geliştirmenin geleceğini Antigravity için orkestre ediyoruz.*
